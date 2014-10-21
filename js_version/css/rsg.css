@@ -1,0 +1,40 @@
+.highlight
+{
+	background:yellow;
+}
+
+.table
+{
+	display:table;
+	width:100%;
+}
+.tcell
+{
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	width: 50%;
+}
+.trow
+{
+	display:table-row;
+	height:50%;
+}
+
+input[type=file]{
+	cursor: pointer;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	filter: alpha(opacity=1);
+	-moz-opacity: 0.01;
+	opacity: 0.01;
+}
+
+.file-wrapper {
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+}

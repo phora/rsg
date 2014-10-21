@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+
+<!--
+Chrisdona Joan C. Paraiso, Stanley Dotloe
+11/23/2012
+CSCE 343
+Assignment 6  - Random Sentence Generator: Generator UI
+-->
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Random Sentence Generator</title>
+	<!-- http://phpjs.org/functions/htmlspecialchars/ -->
+	<script src="js/htmlspecialchars.js" type="text/javascript"></script>
+
+	<!-- external libraries, ignore them squished they are -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.multiselect.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!-- http://api.jqueryui.com/ -->
+	<!-- let's make our own theme: http://jqueryui.com/themeroller/ -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="js/jquery.multiselect.min.js"></script>
+	<!-- external libraries, ignore how squished they are -->
+
+	<!-- Internal scripts I wrote -->
+	<script type="text/javascript" src="js/grammar.js"></script>
+	<script type="text/javascript" src="js/rsg.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/rsg.css" />
+	<!-- Internal scripts I wrote -->
+</head>
+
+<body>
+	<h1 style="text-align:center;">Random Sentence Generator</h1>
+	<div id="panels">
+		<ul>
+			<li><a href="#loader">Load Grammar</a></li>
+			<li><a href="#random-sentence">Sentence Generated</a></li>
+			<li><a href="#grammar-content">Grammar Content</a></li>
+		</ul>
+		<div id="loader" style="height:400px;">
+			<span class="file-wrapper">
+					<button>Load grammar file...</button>
+					<input id="fileinput" type="file" />
+			</span>
+			<div>
+				or type it in directly<br />
+				<textarea id="grammar-input" class="ui-widget ui-state-default ui-corner-all"  style="width:100%;height:300px;resize:none;"></textarea><br />
+				<button id="grammar-input-append">Add to existing grammar</button>
+				<button id="grammar-input-rewrite">Load grammar from text</button>
+			</div>
+		</div>
+
+		<div id="random-sentence" style="height:400px;">
+			You don't have a grammar loaded, silly.
+		</div>
+	
+		<div id="grammar-content" style="overflow:auto;height:400px;">
+			There is no grammar loaded.
+		</div>
+	</div>
+	
+	<div>
+		<button id="make-sentence">Random sentence now!</button>
+		<button id="make-sentencei">Madlibify</button>
+		<button id="about">About</button>
+	</div>
+	
+	<div id="madlib" title="Fill Madlib">
+		<h4>Sentence so far</h4>
+		<blockquote>
+			<div id="cursen">
+			</div>
+		</blockquote>
+		
+		<div id="expansions" class="table">
+			<h4>Expansions</h4>
+			<div class="trow">
+				<div class="tcell">Possible expansions</div>
+				<div class="tcell"><select id="possible-expansions"></select></div>
+			</div>
+			<div class="trow">
+				<div class="tcell">Custom expansion</div>
+				<div class="tcell"><input class="ui-widget ui-state-default ui-corner-all"  id="custom-expansion" /></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
