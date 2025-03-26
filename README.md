@@ -6,7 +6,7 @@ make
 
 # Running
 ## Javascript version
-* Extract all the files in the js_version folder and click on the randomSentenceGenerator.html file
+* Extract all the files in the js_version folder and click on the index.html file
 * Click either "Load grammar file..." or paste the contents of your grammar file into the text box.
 	* If you entered it into the textbox, either press "Add to existing grammar" or "Load grammar from text". The second one will completely rewrite the grammar based on what you typed in, the other will just add what's in the textbox to what grammar you already loaded.
 * Click either "Random sentence now!" or "Madlibify" to start generating sentences.
