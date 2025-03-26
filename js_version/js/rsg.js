@@ -69,10 +69,12 @@ $(document).ready(function() {
 				$('select#possible-expansions').multiselect('destroy');
 			$('select#possible-expansions')[0].options.length = 0;
 			expansions = g.getAllRHS(lhs);
-			for (var i = 0;i<expansions.length;i++)
-			{
-				o = new Option(expansions[i], i);
-				$('select#possible-expansions')[0].options[$('select#possible-expansions')[0].options.length]=o;
+			if (expansions !== undefined) {
+				for (var i = 0;i<expansions.length;i++)
+					{
+						o = new Option(expansions[i], i);
+						$('select#possible-expansions')[0].options[$('select#possible-expansions')[0].options.length]=o;
+					}
 			}
 			$('select#possible-expansions').multiselect({multiple:false,selectedList:4,nonSelectedText:'Choose an expansion'});
 		}
