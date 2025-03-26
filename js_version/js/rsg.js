@@ -11,6 +11,7 @@ $(document).ready(function() {
 	authors = ["Stanley Dotloe","Chrisdona Joan C. Paraiso"];
 	//set up a blank grammar object
 	g = new Grammar();
+	examples = null;
 	
 	function about()
 	{
@@ -64,8 +65,8 @@ $(document).ready(function() {
 			lhs = sentence.substring(lhs_start,lhs_end);
 			//rebuild the select widget with all possible existing expansions
 			//for the current item we're working with
-			if($('select').hasClass('ui-multiselect'))
-				$('select').multiselect('destroy');
+			if($('select#possible-expansions').hasClass('ui-multiselect'))
+				$('select#possible-expansions').multiselect('destroy');
 			$('select#possible-expansions')[0].options.length = 0;
 			expansions = g.getAllRHS(lhs);
 			for (var i = 0;i<expansions.length;i++)
@@ -73,7 +74,7 @@ $(document).ready(function() {
 				o = new Option(expansions[i], i);
 				$('select#possible-expansions')[0].options[$('select#possible-expansions')[0].options.length]=o;
 			}
-			$('select').multiselect({multiple:false,selectedList:4,nonSelectedText:'Choose an expansion'});
+			$('select#possible-expansions').multiselect({multiple:false,selectedList:4,nonSelectedText:'Choose an expansion'});
 		}
 
 		function advance(mode)
@@ -209,6 +210,49 @@ $(document).ready(function() {
 			$('#grammar-content').text("There is no grammar loaded.");
 		}
 	}
+
+	function inspectPrefabsZip() {
+		console.log("aaaaa");
+
+		// 1) get a promise of the content
+		var promise = new JSZip.external.Promise(function (resolve, reject) {
+			JSZipUtils.getBinaryContent("./res/grammars.zip", function(err, data) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(data);
+				}
+			});
+		});
+
+		promise.then(JSZip.loadAsync)                     // 2) chain with the zip promise
+			.then(function(zip) {
+				examples = zip;
+				var dropdown = document.getElementById("prefabs");
+				for (example in zip.files) {
+					var item = document.createElement("option");
+					item.setAttribute("value", example);
+					item.textContent = example;
+					dropdown.appendChild(item);
+				}
+				$("#prefabs").multiselect({
+					multiple: false,
+					header: "Choose an example",
+					noneSelectedText: "-- None --",
+					selectedList: 1,
+					click: function(event, ui){
+						console.log(ui.value + ' !! ' );
+						examples.file(ui.value).async("string").then(function (text) {
+							g = new Grammar();
+							g.prepareFromString(text);
+							updateAccordion();
+							$( "#panels" ).tabs({selected:2});
+						});
+					 },
+				 });
+			});
+
+	}
 	//add function to listen to uploading file
 	document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
 	//make the "Random sentence now!" button generate random sentence on a click
@@ -223,8 +267,9 @@ $(document).ready(function() {
 	document.getElementById("grammar-input-rewrite").onclick=function(){loadGrammarFromText(true)};
 	//set up the rest of the prettifying things
 	$('#madlib').dialog({ autoOpen: false, minHeight: 400, minWidth: 870 });
+	$("#prefabs").ready(inspectPrefabsZip);
 	$( "button" ).button();
 	$("#grammar-content").accordion();
 	$( "#panels" ).tabs();
-	$('select').multiselect({multiple:false,selectedList:4,nonSelectedText:'Choose an expansion'});
+	$('select#possible-expansions').multiselect({multiple:false,selectedList:4,nonSelectedText:'Choose an expansion'});
 });
