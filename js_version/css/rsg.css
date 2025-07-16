@@ -38,3 +38,11 @@ input[type=file]{
 	overflow: hidden;
 	position: relative;
 }
+
+#panels .tab {
+	min-height: 400px;
+}
+
+#panels #grammar-content {
+	overflow: auto;
+}
